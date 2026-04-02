@@ -12,7 +12,7 @@ permanent-memory MCP サーバーの初期セットアップを案内する。
 ### 1. 依存インストール
 
 ```sh
-cd /Users/bash/dev/src/github.com/bash0C7/permanent-memory
+cd /path/to/permanent-memory
 bundle install
 ```
 
@@ -33,7 +33,7 @@ security add-generic-password -s 'esa-mcp-token' -a "$USER" -w '<your-esa-token>
 {
   "mcpServers": {
     "permanent-memory": {
-      "command": "/Users/bash/dev/src/github.com/bash0C7/permanent-memory/scripts/start_mcp.sh"
+      "command": "/path/to/permanent-memory/scripts/start_mcp.sh"
     }
   }
 }
@@ -48,7 +48,7 @@ Claude Desktop / Claude Code で以下を試す:
 - 「永続記憶を検索して」→ `permanent_memory_search` が動けばOK
 - エラーが出る場合は `start_mcp.sh` を直接実行してログを確認:
   ```sh
-  bash /Users/bash/dev/src/github.com/bash0C7/permanent-memory/scripts/start_mcp.sh
+  bash /path/to/permanent-memory/scripts/start_mcp.sh
   ```
 
 ## トラブルシュート

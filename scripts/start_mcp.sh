@@ -5,5 +5,5 @@ if [ -z "$ESA_ACCESS_TOKEN" ]; then
   exit 1
 fi
 export ESA_ACCESS_TOKEN
-cd /Users/bash/dev/src/github.com/bash0C7/permanent-memory
-exec /Users/bash/.rbenv/shims/bundle exec ruby scripts/mcp_server.rb
+cd "$(dirname "$0")/.."
+exec "$HOME/.rbenv/shims/bundle" exec ruby scripts/mcp_server.rb
