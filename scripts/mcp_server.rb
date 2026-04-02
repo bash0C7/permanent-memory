@@ -7,35 +7,38 @@ module EsaClient
   BASE_URL = "https://api.esa.io/v1"
   TEAM     = "bist"
 
-  def self.get(path)
-    request(:get, path)
-  end
+  class << self
+    def get(path)
+      request(:get, path)
+    end
 
-  def self.post(path, body)
-    request(:post, path, body)
-  end
+    def post(path, body)
+      request(:post, path, body)
+    end
 
-  def self.patch(path, body)
-    request(:patch, path, body)
-  end
+    def patch(path, body)
+      request(:patch, path, body)
+    end
 
-  def self.request(method, path, body = nil)
-    token = ENV["ESA_ACCESS_TOKEN"]
-    uri   = URI("#{BASE_URL}#{path}")
+    private
 
-    Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-      req = case method
-            when :get   then Net::HTTP::Get.new(uri)
-            when :post  then Net::HTTP::Post.new(uri)
-            when :patch then Net::HTTP::Patch.new(uri)
-            end
-      req["Authorization"] = "Bearer #{token}"
-      req["Content-Type"]  = "application/json"
-      req.body = JSON.generate(body) if body
-      JSON.parse(http.request(req).body)
+    def request(method, path, body = nil)
+      token = ENV["ESA_ACCESS_TOKEN"]
+      uri   = URI("#{BASE_URL}#{path}")
+
+      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+        req = case method
+              when :get   then Net::HTTP::Get.new(uri)
+              when :post  then Net::HTTP::Post.new(uri)
+              when :patch then Net::HTTP::Patch.new(uri)
+              end
+        req["Authorization"] = "Bearer #{token}"
+        req["Content-Type"]  = "application/json"
+        req.body = JSON.generate(body) if body
+        JSON.parse(http.request(req).body)
+      end
     end
   end
-  private_class_method :request
 end
 
 class PermanentMemorySearch < MCP::Tool
@@ -141,7 +144,7 @@ class PermanentMemoryUpdate < MCP::Tool
           body_md:           body_md,
           tags:              tags,
           wip:               false,
-          original_revision: { number: 0, body_md: original_body_md, user: original_user }
+          original_revision: { number: current["revision_number"].to_i, body_md: original_body_md, user: original_user }
         }
       })
 
