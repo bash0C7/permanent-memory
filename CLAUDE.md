@@ -1,36 +1,24 @@
 # permanent-memory
 
-Ruby MCP server providing esa-backed permanent memory for Claude Desktop and Claude Code.
+Ruby MCP server. esa.io `bist` チーム・tag `永続` をバックエンドとする永続記憶。
 
-## Overview
+## Tools
 
-- **MCP tools** (all clients): `permanent_memory_search`, `permanent_memory_create`, `permanent_memory_update`
-- **Skills** (Claude Code only): `permanent-memory-archive`, `permanent-memory-organize`
-- **Backend**: esa.io `bist` team, posts tagged `永続`
+- `permanent_memory_search` — 検索（`tag:永続 -in:Archived`）
+- `permanent_memory_create` — 新規作成（タグ `永続` 自動付与）
+- `permanent_memory_update` — 更新（revision 競合検知あり）
 
-## Setup
+実装: `scripts/mcp_server.rb`
+
+## Skills（Claude Code のみ）
+
+- `/permanent-memory-archive` — ポストをアーカイブして記憶から除外
+- `/permanent-memory-organize` — 永続記憶ポストの整理・重複排除
+
+## Dev
 
 ```sh
-bundle install
+bundle install   # 依存: mcp gem, test-unit
 ```
 
-## Claude Desktop config
-
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-```json
-"permanent-memory": {
-  "command": "/Users/bash/dev/src/github.com/bash0C7/permanent-memory/scripts/start_mcp.sh"
-}
-```
-
-## Authentication
-
-`start_mcp.sh` reads `esa-mcp-token` from macOS Keychain at startup and passes it as `ESA_ACCESS_TOKEN` environment variable. No secrets are stored in code or config files.
-
-## Skills
-
-Run from Claude Code inside this repository directory:
-
-- `/permanent-memory-archive` — Archive a post (remove from active memory)
-- `/permanent-memory-organize` — Review and clean up all permanent memory posts
+認証・設定の詳細は README.md 参照。
