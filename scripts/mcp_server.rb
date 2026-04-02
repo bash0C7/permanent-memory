@@ -44,6 +44,7 @@ end
 class PermanentMemorySearch < MCP::Tool
   description <<~DESC
     【永続記憶】esa bist チームの永続記憶を検索する（tag:永続 -in:Archived）。
+    以下のフレーズで発動: "永続記憶", "permanent-memory", "permanentmemory", "permanent memory".
     返り値: JSON 配列。各要素に number（更新操作の参照用）・name・body_md・updated_at を含む。
     ユーザーへの表示: body_md の内容のみを "---" で区切って全文表示すること。
     number・name・updated_at 等のメタデータはユーザーに表示しない。
@@ -79,6 +80,7 @@ end
 class PermanentMemoryCreate < MCP::Tool
   description <<~DESC
     【永続記憶】esa bist チームに永続記憶ポストを新規作成する。
+    以下のフレーズで発動: "永続記憶に保存", "permanent-memory に保存", "permanent memory save".
     タイトル形式: "[キーワード1][キーワード2] 内容の概要"（180文字以内）。
     実行前にタイトルと本文をユーザーに確認すること。
     返り値: { number, url, name }
@@ -113,6 +115,7 @@ end
 class PermanentMemoryUpdate < MCP::Tool
   description <<~DESC
     【永続記憶】esa bist チームの永続記憶ポストを更新する。
+    以下のフレーズで発動: "永続記憶を更新", "permanent-memory を更新", "permanent memory update".
     内部で現在の本文を取得して競合検知を行う（originalRevision）。
     永続タグは自動的に維持される。
     実行前に変更内容をユーザーに確認すること。
